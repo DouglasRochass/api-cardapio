@@ -1,11 +1,9 @@
-
 const Usuario = require('../models/usuario')
-
-const login = async(req, res) =>{
+exports.Login = async(req, res) =>{
     const {email, senha} = req.body;
     
     try {
-        const usuario = await Usuario.findOne({email})
+        const usuario = await Usuario.findOne({email, senha})
         if(!usuario){
             return res.status(401).send({error: 'Usuário não encontrado'});
         }
@@ -14,6 +12,3 @@ const login = async(req, res) =>{
         res.status(500).json({mensagem: 'não foi possível fazer a solicitação'})
     }
 }
-
-
-module.exports = login;
