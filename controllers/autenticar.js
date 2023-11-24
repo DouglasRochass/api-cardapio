@@ -5,7 +5,9 @@ exports.Login = async(req, res) =>{
     try {
         const usuario = await Usuario.findOne({email, senha})
         if(!usuario){
-            return res.status(401).send({error: 'Usuário não encontrado'});
+            return res.status(401).send({error: 'Usuário ou senha incorretos'});
+        }else{
+            return res.json({messagem: 'usuario encontrado'})
         }
     } catch (error) {
         console.log(error);

@@ -1,4 +1,4 @@
-const Imagem = require("../models/imagens")
+const salvarImagem = require("../models/imagens")
 
 exports.create = async (req, res) =>{
 

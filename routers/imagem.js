@@ -5,6 +5,6 @@ const upload = require('../config/multer')
 
 const Imagem = require("../controllers/imagem")
 
-router.post('/', upload.single("file") ,Imagem.create)
-router.get("/", upload.findAll)
+router.post('/', upload.single("file"), Imagem.create)
+// router.get("/", upload.findAll)
 module.exports = router
