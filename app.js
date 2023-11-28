@@ -6,12 +6,11 @@ const produto = require('./routers/produto')
 const bodyParser = require('body-parser')
 
 const app = express();
-app.use(express.json())
 app.use(cors());
 app.use(bodyParser.json())
 
 app.use('/login', login)
-app.use('/produtos', produto )
+app.use('/', produto)
 
 // app.use(router)
 
