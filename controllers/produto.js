@@ -7,14 +7,14 @@ exports.create = async (req, res) =>{
     const nome = req.body
     const descricao = req.body
     const preco = req.body
-    const imagem = req.file
+    const imagem = req.file.path
 
     const produto = new produto({
       categoria,
       nome,
       descricao,
       preco,
-      imagem: imagem.path
+      imagem: imagem
     })
     
     await saveProduct.save()

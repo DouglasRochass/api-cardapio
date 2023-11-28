@@ -10,4 +10,4 @@ const produtoSchema = new Schema({
      imagem:   {type: String, required:true}
 })
 
-module.exports = model('Produto', produtoSchema)
+module.exports = model('produto', produtoSchema)
