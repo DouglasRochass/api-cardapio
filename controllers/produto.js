@@ -1,31 +1,29 @@
- const Produto = require("../models/produtos"); // Use um nome diferente para a variável
+const Produto = require("../models/produtos");
 
- exports.create = async (req, res) => {
-   try {
-     const categoria = req.body.categoria; // Corrija aqui para acessar os campos corretamente
-     const nome = req.body.nome;
-     const descricao = req.body.descricao;
-     const preco = req.body.preco;
+exports.create = async (req, res) => {
+  try {
+    const { categoria, nome, descricao, preco } = req.body; // Acesso aos campos do corpo da requisição
 
-    const novoProduto = new Produto({
-       categoria,
-       nome,
-       descricao,
-       preco
-     });
-     await novoProduto.save(); // Corrija aqui para chamar o método save() no novoProduto
-     res.status(201).json({ novoProduto, message: "Produto salvo com sucesso" });
-   } catch (error) {
-     res.status(500).json({ message: "Erro ao cadastrar produto" });
-   }
- };
+    const newProduct = new Produto({
+      categoria,
+      nome,
+      descricao,
+      preco
+    });
 
-// exports.find = async (req, res) => {
-//   try {
-//     const produtos = await Produto.find(); // Corrija aqui para chamar o método find() no Produto
+    await newProduct.save(); // Chamar o método save() no newProduct
+    res.status(201).json({ newProduct, message: "Produto salvo com sucesso" });
+  } catch (error) {
+    res.status(500).json({ message: "Erro ao cadastrar produto" });
+  }
+};
 
-//     res.status(200).json(produtos);
-//   } catch (error) {
-//     res.status(500).json({ message: "Erro ao buscar produtos" });
-//   }
-// };
+exports.find = async (req, res) => {
+  try {
+    const produtos = await Produto.find(); 
+
+    res.status(200).json(produtos);
+  } catch (error) {
+    res.status(500).json({ message: "Erro ao buscar produtos" });
+  }
+};
