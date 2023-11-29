@@ -4,19 +4,13 @@ const product = require('../controllers/produto');
 const modelo = require('../models/produtos')
 // Rota para criar um novo documento
 router.post('/criar', async (req, res) => {
-    try{
-        let produto = new modelo({
-            categoria: req.body.categoria,
-            nome: req.body.nome,
-            descricao: req.body.descricao,
-            preco: req.body.preco,
-            })
-            await produto.save()
-            return res.json(produto);
-            }catch(e){
-                console.log(e)
-                }
-                })
+    try {
+     const novoProduto = await product.create(req.body);
+    res.status(201).json({novoProduto, message: "produto criado com sucesso"});
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao criar produto' });
+  }
+ });
 
 //   try {
 //     const novoProduto = await product.create(req.body);
