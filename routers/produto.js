@@ -5,7 +5,7 @@ const modelo = require('../models/produtos')
 // Rota para criar um novo documento
 router.post('/criar', async (req, res) => {
     try {
-     const novoProduto = await product.create(req.body);
+     const novoProduto = await product.create(req.params);
     res.status(201).json({novoProduto, message: "produto criado com sucesso"});
   } catch (error) {
     res.status(500).json({ error: 'Erro ao criar produto' });
