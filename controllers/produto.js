@@ -6,14 +6,12 @@
      const nome = req.body.nome;
      const descricao = req.body.descricao;
      const preco = req.body.preco;
-     const imagem = req.file.path;
 
     const novoProduto = new Produto({
        categoria,
        nome,
        descricao,
-       preco,
-       imagem
+       preco
      });
      await novoProduto.save(); // Corrija aqui para chamar o método save() no novoProduto
      res.status(201).json({ novoProduto, message: "Produto salvo com sucesso" });
