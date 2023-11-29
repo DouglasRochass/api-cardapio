@@ -34,7 +34,6 @@ router.get('/buscar', async (req, res) => {
 router.put('/atualizar/:id', async (req, res) => {
       
     try {
-        console.log('req.file:', req.file)
       const idProduto = req.params.id;
       const {categoria, nome, descricao, preco} = req.body;
   
