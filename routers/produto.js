@@ -2,16 +2,14 @@ const express = require('express');
 const router = express.Router();
 const product = require('../controllers/produto');
 const modelo = require('../models/produtos')
-const upload = require('../config/multer')
 // Rota para criar um novo documento
-router.post('/criar', upload.single('imagem'), async (req, res) => {
+router.post('/criar', async (req, res) => {
     try{
         let produto = new modelo({
             categoria: req.body.categoria,
             nome: req.body.nome,
             descricao: req.body.descricao,
             preco: req.body.preco,
-            imagem: req.file.path
             })
             await produto.save()
             return res.json(produto);
@@ -39,17 +37,16 @@ router.get('/buscar', async (req, res) => {
 
 
 // Rota para atualizar um documento existente
-router.put('/atualizar/:id', upload.single('imagem'), async (req, res) => {
+router.put('/atualizar/:id', async (req, res) => {
       
     try {
         console.log('req.file:', req.file)
       const idProduto = req.params.id;
       const {categoria, nome, descricao, preco} = req.body;
-      const imagem = req.file.path
   
       const produtoAtualizado = await modelo.findByIdAndUpdate(
         idProduto,
-        { categoria, nome, descricao, preco, imagem},
+        { categoria, nome, descricao, preco},
         { new: true }
       );
   
