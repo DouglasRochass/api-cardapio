@@ -11,7 +11,6 @@ const produtoSchema = new Schema({
 
      preco:    {type: Number, required:true},
      
-     imagem:   {type: String, required:true}
 })
 
 module.exports = model('Produto', produtoSchema)
