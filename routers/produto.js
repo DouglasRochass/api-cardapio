@@ -6,7 +6,7 @@ const produtoController = require('../controllers/produto');
 router.post('/criar', async (req, res) => {
   try {
     const novoProduto = await produtoController.create(req, res);
-    res.status(201).json({ newProductId: novoProduto.id, message: "Produto cadastrado com sucesso" });
+
   } catch (error) {
     res.status(500).json({ error: 'Erro ao criar produto' });
   }
