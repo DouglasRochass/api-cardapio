@@ -27,7 +27,7 @@ router.get('/buscar/:categoria', async (req, res) => {
 router.put('/atualizar/:id', async (req, res) => {
   try {
     const produtoAtualizado = await produtoController.update(req, res);
-    res.status(200).json({ produtoAtualizado, message: "Produto atualizado com sucesso" });
+
   } catch (error) {
     res.status(500).json({ error: 'Erro ao atualizar produto' });
   }
