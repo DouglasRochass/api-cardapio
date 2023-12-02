@@ -1,29 +1,66 @@
 const Produto = require("../models/produtos");
 
+
 exports.create = async (req, res) => {
   try {
-    const { categoria, nome, descricao, preco } = req.body; // Acesso aos campos do corpo da requisição
+    const { categoria, nome, descricao, preco } = req.body;
 
-    const newProduct = new Produto({
+    const novoProduto = await Produto.create({ categoria, nome, descricao, preco });
+  } catch (error) {
+    console.error('Erro no bloco try-catch:', error);
+    if (!res.headersSent) {
+      res.status(500).json({ message: "Erro ao cadastrar produto" });
+    }
+  }
+};
+
+exports.findByCategory = async (req, res) => {
+  try {
+    const { categoria } = req.params;
+
+    const produtos = await Produto.findAll({
+      where: { categoria }
+    });
+
+    res.status(200).json(produtos);
+  } catch (error) {
+    console.error('Erro ao buscar produtos por categoria:', error);
+    res.status(500).json({ message: "Erro ao buscar produtos por categoria" });
+  }
+};
+
+exports.update = async (req, res) => {
+  try {
+    const idProduto = req.params.id;
+    const { categoria, nome, descricao, preco } = req.body;
+
+    const updatedProduct = await Produto.update({
       categoria,
       nome,
       descricao,
       preco
+    }, {
+      where: { id: idProduto }
     });
 
-    await newProduct.save(); // Chamar o método save() no newProduct
-    res.status(201).json({ newProduct, message: "Produto salvo com sucesso" });
+    
   } catch (error) {
-    res.status(500).json({ message: "Erro ao cadastrar produto" });
+    console.error('Erro ao atualizar produto:', error);
+    res.status(500).json({ message: "Erro ao atualizar produto" });
   }
 };
 
-exports.find = async (req, res) => {
+exports.delete = async (req, res) => {
   try {
-    const produtos = await Produto.find(); 
+    const idProduto = req.params.id;
 
-    res.status(200).json(produtos);
+    await Produto.destroy({
+      where: { id: idProduto }
+    });
+
+    res.status(200).json({ message: "Produto deletado com sucesso" });
   } catch (error) {
-    res.status(500).json({ message: "Erro ao buscar produtos" });
+    console.error('Erro ao deletar produto:', error);
+    res.status(500).json({ message: "Erro ao deletar produto" });
   }
 };

@@ -1,11 +1,22 @@
-const { Schema, model } = require('mongoose');
+const { Sequelize, DataTypes } = require('sequelize');
+const sequelize = require('../conexao');
 
-const usuarioSchema = new Schema({
-  email: { type: String, required: true, unique: true },
-  senha: { type: String, required: true },
+const usuario = sequelize.define('Usuario', {
+  usuario: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
+  senha: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  }
+},
+{
+  // Para não criar a coluna createdAt e updateAt do sequelize e 
+  // também para não pluralizar a tabela 
+  timestamps: false,
+  freezeTableName: true
 });
 
-
-
-module.exports = model('Usuario', usuarioSchema);
-
+module.exports = usuario;
