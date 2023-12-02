@@ -6,6 +6,8 @@ exports.create = async (req, res) => {
     const { categoria, nome, descricao, preco } = req.body;
 
     const novoProduto = await Produto.create({ categoria, nome, descricao, preco });
+
+    res.status(201).json({ newProductId: novoProduto.id, message: "Produto cadastrado com sucesso" });
   } catch (error) {
     console.error('Erro no bloco try-catch:', error);
     if (!res.headersSent) {
@@ -43,7 +45,7 @@ exports.update = async (req, res) => {
       where: { id: idProduto }
     });
 
-    
+    res.status(200).json({ message: "Produto atualizado com sucesso" });
   } catch (error) {
     console.error('Erro ao atualizar produto:', error);
     res.status(500).json({ message: "Erro ao atualizar produto" });
