@@ -6,7 +6,7 @@ const produto = require('./routers/produto')
 const bodyParser = require('body-parser')
 
 const app = express();
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({ origin: 'https://funny-handkerchief-newt.cyclic.app' }));
 app.use(bodyParser.json())
 
 app.use('/login', login)
